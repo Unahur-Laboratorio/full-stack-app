@@ -1,6 +1,6 @@
 module.exports = {
-  HOST: "localhost",
-  USER: "root",
-  PASSWORD: "123456",
-  DB: "testdb"
+  HOST: process.env.DB_HOST || "mysql",
+  USER: process.env.DB_USER || "appuser",
+  PASSWORD: process.env.DB_PASSWORD,
+  DB: process.env.DB_NAME || "appdb"
 };
