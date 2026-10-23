@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Examen Node API</title>
+  <script>
+    // Reemplazá <ALB_DNS> por el DNS del Application Load Balancer creado en AWS
+    const ALB_DNS = '<ALB_DNS>'; // Ejemplo: 'fullstack-api-lb-1909225646.us-east-1.elb.amazonaws.com'
+    const API_BASE = `http://${ALB_DNS}/api/tutorials`;
+
+    async function getAll() {
+      const res = await fetch(API_BASE);
+      const data = await res.json();
+      document.getElementById('result').innerText = JSON.stringify(data, null, 2);
+    }
+
+    async function create() {
+      await fetch(API_BASE, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title: "Desde Frontend", description: "Agregado desde HTML", published: false })
+      });
+      getAll();
+    }
+
+    async function getOne() {
+      const id = document.getElementById('id').value;
+      const res = await fetch(`${API_BASE}/${id}`);
+      const data = await res.json();
+      document.getElementById('result').innerText = JSON.stringify(data, null, 2);
+    }
+
+    async function update() {
+      const id = document.getElementById('id').value;
+      await fetch(`${API_BASE}/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title: "Actualizado", description: "Editado desde HTML", published: true })
+      });
+      getAll();
+    }
+
+    async function deleteOne() {
+      const id = document.getElementById('id').value;
+      await fetch(`${API_BASE}/${id}`, { method: 'DELETE' });
+      getAll();
+    }
+
+    async function deleteAll() {
+      await fetch(API_BASE, { method: 'DELETE' });
+      getAll();
+    }
+
+    window.onload = getAll;
+  </script>
+</head>
+<body>
+  <h1>Frontend para API Node.js</h1>
+  <p>ID: <input id="id" type="number" value="1"></p>
+  <button onclick="getAll()">Listar todos</button>
+  <button onclick="create()">Crear uno</button>
+  <button onclick="getOne()">Obtener por ID</button>
+  <button onclick="update()">Actualizar</button>
+  <button onclick="deleteOne()">Eliminar por ID</button>
+  <button onclick="deleteAll()">Eliminar todos</button>
+  <pre id="result"></pre>
+</body>
+</html>
