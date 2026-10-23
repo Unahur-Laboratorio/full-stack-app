@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "Fullstack API Tutorials",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

@@ -1,0 +1,23 @@
+meta {
+  name: Create Tutorial
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/api/tutorials
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "title": "Desde Bruno",
+    "description": "Creado desde la coleccion Bruno",
+    "published": false
+  }
+}

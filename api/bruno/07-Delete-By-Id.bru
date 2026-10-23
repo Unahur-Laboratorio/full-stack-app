@@ -1,0 +1,11 @@
+meta {
+  name: Delete Tutorial By ID
+  type: http
+  seq: 7
+}
+
+delete {
+  url: {{baseUrl}}/api/tutorials/{{tutorialId}}
+  body: none
+  auth: none
+}
